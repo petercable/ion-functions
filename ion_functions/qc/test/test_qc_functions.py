@@ -412,7 +412,7 @@ class TestQCFunctionsUnit(BaseUnitTestCase):
         a = np.random.random_sample(max)*(20-10)+10 # Random values between 10 & 20
 
         # Get a random range, set them to the same value
-        si = np.random.randint(0,max-20,1)
+        si = np.random.randint(0,max-20,1)[0]
         sl = slice(si, si+20)
         a[sl] = a[si]
 
