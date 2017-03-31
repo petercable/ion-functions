@@ -173,7 +173,7 @@ def ctd_sbe52mp_tempwat(t0):
 
 def ctd_sbe16plus_preswat(p0, t0, ptempa0, ptempa1, ptempa2,
                           ptca0, ptca1, ptca2, ptcb0, ptcb1, ptcb2,
-                          pa0, pa1, pa2):
+                          pa0, pa1, pa2, offset=0):
     """
     Description:
 
@@ -191,12 +191,13 @@ def ctd_sbe16plus_preswat(p0, t0, ptempa0, ptempa1, ptempa2,
         2013-04-12: Chris Wingard. Initial Code.
         2013-05-10: Christopher Wingard. Minor edits to comments.
         2014-01-31: Russell Desiderio. Standardized comment format.
+        2017-03-31: Dan Mergens. Update to correct adjust for Druck offset.
 
     Usage:
 
         p = ctd_sbe16plus_preswat(p0, t0, ptempa0, ptempa1, ptempa2,
                           ptca0, ptca1, ptca2, ptcb0, ptcb1, ptcb2,
-                          pa0, pa1, pa2)
+                          pa0, pa1, pa2, offset)
 
             where
 
@@ -215,6 +216,7 @@ def ctd_sbe16plus_preswat(p0, t0, ptempa0, ptempa1, ptempa2,
         pa0 = strain gauge pressure calibration coefficients
         pa1 = strain gauge pressure calibration coefficients
         pa2 = strain gauge pressure calibration coefficients
+        offset = correction for Druck error [dbar]
 
     References:
 
@@ -232,7 +234,7 @@ def ctd_sbe16plus_preswat(p0, t0, ptempa0, ptempa1, ptempa2,
     # compute pressure in psi, rescale and compute in dbar and return
     p_psi = pa0 + pa1 * n + pa2 * n**2
     p_dbar = (p_psi * 0.689475729) - 10.1325
-    return p_dbar
+    return p_dbar + offset
 
 
 def ctd_sbe16digi_preswat(p0, t0, C1, C2, C3, D1, D2, T1, T2, T3, T4, T5):
