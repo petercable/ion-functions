@@ -207,6 +207,23 @@ class TestPRSFunctionsUnit(BaseUnitTestCase):
         # How'd we do?
         np.testing.assert_array_equal(out, ccmp)
 
+    def test_prs_bottilt_ccmp_missing_sn(self):
+        # set known inputs
+        scmp = np.atleast_1d([row[2] for row in self.lily])
+        snum = np.atleast_1d([row[3] for row in self.lily])
+
+        # set known output for the corrected compass direction
+        ccmp = np.atleast_1d([row[4] for row in self.lily]).astype('f8')
+
+        snum[5:10] = 'CORRUPT'
+        ccmp[5:10] = np.nan
+
+        # calculate the corrected compass direction
+        out = prsfunc.prs_bottilt_ccmp(scmp, snum)
+
+        # How'd we do?
+        np.testing.assert_array_equal(out, ccmp)
+
     def test_prs_bottilt_tmag(self):
         """
         Test prs_bottilt_tmag function.
