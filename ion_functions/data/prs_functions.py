@@ -106,12 +106,11 @@ def prs_bottilt_ccmp(scmp, sn):
     from ion_functions.data.prs_functions_ccmp import cmp_lookup
 
     # use the lookup table to get the ccmp
-    ccmp = np.zeros(len(scmp))
-
+    scmp = scmp.round().astype('int')
+    ccmp = np.zeros(scmp.size)
     for i in range(len(scmp)):
-        ccmp[i] = cmp_lookup[(sn[i], int(round(scmp[i])))]
+        ccmp[i] = cmp_lookup.get((sn[i], scmp[i]), np.nan)
     return ccmp
-
 
     ####  Faster coding, using a dictionary constructed with 1-element keys.
     #
